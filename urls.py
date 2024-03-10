@@ -1,0 +1,10 @@
+class URLS:
+    URL_MAIN = "http://qa-scooter.praktikum-services.ru/"
+    URL_CREATE_COURIER = "/api/v1/courier"
+    URL_LOGIN_COURIER = "/api/v1/courier/login"
+    URL_CREATE_ORDER = "/api/v1/orders"
+    URL_TAKE_ORDER ="/api/v1/orders/accept/:id"
+    URL_TAKE_ORDER_BY_NUMBER = "/api/v1/orders/track"
+    URL_TAKE_LIST_ORDERS = "/api/v1/orders"
+    URL_CANCEL_ORDER = "/api/v1/orders/cancel"
+    URL_FINISH_ORDER = "/api/v1/orders/finish/:id"

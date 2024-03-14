@@ -1,6 +1,6 @@
 import pytest
 import requests
-import conftest
+import functions
 from urls import URLS
 from data import LoginCourier
 import allure
@@ -9,8 +9,8 @@ import allure
 class TestLoginCourier:
     @allure.title("Ручка /api/v1/courier/login")
     @allure.description("Создаём нового курьера, затем логинимся и подтверждаем, что в теле ответа есть 'id' и там не пусто")
-    def atest_login_courier_positive(self):
-        login_pass = conftest.register_new_courier_and_return_login_password()
+    def test_login_courier_positive(self):
+        login_pass = functions.Functions.register_new_courier_and_return_login_password()
         data = \
             {
                 "login": login_pass[0],
@@ -20,14 +20,15 @@ class TestLoginCourier:
         assert "id" in response.json()
         assert response.json()["id"] != ""
 
+    @allure.title("Ручка /api/v1/courier/login")
     @allure.description("Пробуем залогиниться, используя некорректные данные, ожидаем получить ошибку 400 и текст 'Недостаточно данных для входа'")
     @pytest.mark.parametrize(
         "login, password",
-        [
-            LoginCourier.Login_0,
-            LoginCourier.Login_1,
-            LoginCourier.Login_2
-        ]
+            [
+                LoginCourier.Login_0,
+                LoginCourier.Login_1,
+                LoginCourier.Login_2
+            ]
     )
     def test_login_courier_empty_fields_error(self, login, password):
         data = \
@@ -40,10 +41,11 @@ class TestLoginCourier:
         assert response.status_code == 400
         assert response.json()["message"] == "Недостаточно данных для входа"
 
+    @allure.title("Ручка /api/v1/courier/login")
     @allure.description("Создаём нового курьера, затем логинимся с неправильным логином, ожадаем ошибку 404 и сообщение 'Учетная запись не найдена'")
-    def atest_login_courier_wrong_login(self):
+    def test_login_courier_wrong_login(self):
 
-        login_pass = conftest.register_new_courier_and_return_login_password()
+        login_pass = functions.Functions.register_new_courier_and_return_login_password()
         data = \
             {
                 "login": "123141",

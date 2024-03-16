@@ -16,8 +16,7 @@ def login_new_courier():
     response = requests.post(URLS.URL_MAIN + URLS.URL_LOGIN_COURIER, data)
     track_id = response.json()["id"]
     yield track_id
-    responce_1 = requests.delete(URLS.URL_MAIN + URLS.URL_DELETE_COURIER + str(response.json()["id"]))
-
+    requests.delete(URLS.URL_MAIN + URLS.URL_DELETE_COURIER + str(response.json()["id"]))
 
 
 @pytest.fixture(scope='function')
